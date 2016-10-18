@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <SDL/SDL.h>
 #include "curses.h"
+#include "tile.h"
 
 #define WIDTH 1280
 #define HEIGHT 720
@@ -24,12 +25,23 @@ int main(int argc, char* args[])
     initscr();
     start_color();
     scrollok(stdscr, TRUE);
-    init_pair(1, COLOR_WHITE + 8, COLOR_BLUE);
+    init_pair(1, COLOR_WHITE, COLOR_BLUE);
     bkgd(COLOR_PAIR(1));
     //nodelay(stdscr, TRUE);
 
     // test string
     addstr("ASCII VENTURE!!!\n");
+
+    // test tile
+    char tile_data[4][4] = {
+        { '-', '-', '-', '-' },
+        { '|', ' ', ' ', '|' },
+        { '|', ' ', ' ','|' },
+        { '-', '-', '-', '-' }
+    };
+
+    tile *test_tile = create_tile(COLOR_WHITE, COLOR_BLUE, tile_data);
+    render_tile(0, 0, test_tile);
 
     // wait
     getch();

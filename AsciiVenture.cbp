@@ -40,6 +40,14 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="map.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="map.h" />
+		<Unit filename="tile.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tile.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
