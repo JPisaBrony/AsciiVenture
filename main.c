@@ -41,7 +41,7 @@ int main(int argc, char* args[])
     };
 
     tile *test_tile = create_tile(COLOR_WHITE, COLOR_BLUE, tile_data);
-    render_tile(0, 0, test_tile);
+    render_tile(10, 20, test_tile, stdscr);
 
     // wait
     getch();
