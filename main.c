@@ -2,11 +2,14 @@
 #include <SDL/SDL.h>
 #include "curses.h"
 #include "tile.h"
+#include "player.h"
 
 #define WIDTH 1280
 #define HEIGHT 720
 
 PDCEX SDL_Surface *pdc_screen;
+int quit = 0, direction;
+char input_char;
 
 int main(int argc, char* args[])
 {
@@ -27,7 +30,19 @@ int main(int argc, char* args[])
     scrollok(stdscr, TRUE);
     init_pair(1, COLOR_WHITE, COLOR_BLUE);
     bkgd(COLOR_PAIR(1));
-    //nodelay(stdscr, TRUE);
+    nodelay(stdscr, TRUE);
+    noecho();
+
+    // blank tile
+    char blank_data[4][4] = {
+        { ' ', ' ', ' ', ' ' },
+        { ' ', ' ', ' ', ' ' },
+        { ' ', ' ', ' ',' ' },
+        { ' ', ' ', ' ', ' ' }
+    };
+
+    // create blank tile
+    tile *blank_tile = create_tile(COLOR_WHITE, COLOR_BLUE, blank_data, "blank");
 
     // test tile
     char tile_data[4][4] = {
@@ -37,13 +52,56 @@ int main(int argc, char* args[])
         { '-', '-', '-', '-' }
     };
 
+    // create testing tile
     tile *test_tile = create_tile(COLOR_WHITE, COLOR_BLUE, tile_data, "test tile");
 
-    render_room(test_tile, 10, 30, stdscr);
-    //render_filled_room(test_tile, 10, 30, stdscr);
+    // create player tile
+    char player_data[4][4] = {
+        { '-', ' ', ' ', '-' },
+        { ' ', ' ', ' ', ' ' },
+        { ' ', ' ', ' ',' ' },
+        { '-', '-', '-', '-' }
+    };
 
-    // wait
-    getch();
+    tile *player_tile = create_tile(COLOR_WHITE, COLOR_BLUE, player_data, "player");
+    player *player = create_player(4, 4, player_tile);
+
+    // main game loop
+    while(!quit) {
+        // get input character
+        input_char = getch();
+        switch(input_char) {
+            // up
+            case 'w':
+                player->direction = 1;
+                move_player(player->x, player->y - TILE_SIZE, player);
+                break;
+            // left
+            case 'a':
+                player->direction = 2;
+                move_player(player->x - TILE_SIZE, player->y, player);
+                break;
+            // down
+            case 's':
+                player->direction = 3;
+                move_player(player->x, player->y + TILE_SIZE, player);
+                break;
+            // right
+            case 'd':
+                player->direction = 4;
+                move_player(player->x + TILE_SIZE, player->y, player);
+                break;
+        }
+
+        // render the player
+        render_player(player, blank_tile, stdscr);
+        // reset direction
+        player->direction = 0;
+
+        // render the map
+        render_room(test_tile, 10, 30, stdscr);
+        refresh();
+    }
 
     // cleanup
     endwin();
