@@ -78,6 +78,10 @@ int main(int argc, char* args[])
         // get input character
         input_char = getch();
         switch(input_char) {
+            // quit
+            case 'q':
+                quit = 1;
+                break;
             // up
             case 'w':
                 current_screen->y -= 1;
