@@ -37,7 +37,7 @@ int main(int argc, char* args[])
         { '-', '-', '-', '-' }
     };
 
-    tile *test_tile = create_tile(COLOR_WHITE, COLOR_BLUE, tile_data);
+    tile *test_tile = create_tile(COLOR_WHITE, COLOR_BLUE, tile_data, "test tile");
 
     render_room(test_tile, 10, 30, stdscr);
     //render_filled_room(test_tile, 10, 30, stdscr);

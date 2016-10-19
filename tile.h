@@ -20,6 +20,6 @@ typedef struct {
 
 /// function prototypes
 
-tile* create_tile(int bgcolor, int fgcolor, char data[TILE_SIZE][TILE_SIZE]);
+tile* create_tile(int bgcolor, int fgcolor, char data[TILE_SIZE][TILE_SIZE], char *name);
 
 #endif // TILE_INCLUDED
