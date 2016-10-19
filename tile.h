@@ -13,6 +13,8 @@ typedef struct {
     int fgcolor;
     // characters contained in the tile
     char data[TILE_SIZE][TILE_SIZE];
+    // name of the tile
+    char *name;
 } tile;
 
 
