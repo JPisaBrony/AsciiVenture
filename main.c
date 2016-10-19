@@ -70,8 +70,6 @@ int main(int argc, char* args[])
     screen *current_screen = create_screen();
     // set all the tiles to be blank
     initialize_level(blank_tile);
-    // create a normal room
-    add_room(test_tile, 5, 10);
 
     // main game loop
     while(!quit) {
@@ -82,42 +80,51 @@ int main(int argc, char* args[])
             case 'q':
                 quit = 1;
                 break;
-            // up
+            // player up
             case 'w':
-                current_screen->y -= 1;
                 player->direction = 1;
-                move_player(player->x, player->y - TILE_SIZE, player);
+                move_player(player->x, player->y - 1, player);
                 break;
-            // left
+            // player left
             case 'a':
-                current_screen->x -= 1;
                 player->direction = 2;
-                move_player(player->x - TILE_SIZE, player->y, player);
+                move_player(player->x - 1, player->y, player);
                 break;
-            // down
+            // player down
             case 's':
-                current_screen->y += 1;
                 player->direction = 3;
-                move_player(player->x, player->y + TILE_SIZE, player);
+                move_player(player->x, player->y + 1, player);
                 break;
-            // right
+            // player right
             case 'd':
-                current_screen->x += 1;
                 player->direction = 4;
-                move_player(player->x + TILE_SIZE, player->y, player);
+                move_player(player->x + 1, player->y, player);
+                break;
+            // camera up
+            case 'i':
+                current_screen->y -= 1;
+                break;
+            // camera left
+            case 'j':
+                current_screen->x -= 1;
+                break;
+            // camera down
+            case 'k':
+                current_screen->y += 1;
+                break;
+            // camera right
+            case 'l':
+                current_screen->x += 1;
                 break;
         }
 
-        /*
+        // create a normal room
+        add_room(test_tile, 10, 30);
         // render the player
         render_player(player, blank_tile, stdscr);
         // reset direction
         player->direction = 0;
-
-        // render the map
-        render_room(test_tile, 10, 30, stdscr);
-        refresh();
-        */
+        // render the level
         render_level(current_screen, stdscr);
     }
 

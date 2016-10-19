@@ -29,9 +29,10 @@ typedef struct {
 
 /// function prototypes
 
-void add_tile(int x, int y, tile *t, WINDOW* win);
+void render_tile(int x, int y, tile *t, WINDOW* win);
 void add_filled_room(tile *wall, int height, int width);
 void add_room(tile *wall, int height, int width);
 screen* create_screen();
+void add_tile_to_level(int x, int y, tile *t);
 
 #endif // MAP_INCLUDED

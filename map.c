@@ -31,18 +31,18 @@ void render_level(screen *s, WINDOW *win) {
     for(i = 0; i < s->height; i++) {
         for(j = 0; j < s->width; j++) {
             // add the tile of were the screen is currently located
-            add_tile(i * TILE_SIZE, j * TILE_SIZE, &level[s->x + i][s->y + j], win);
+            render_tile(i * TILE_SIZE, j * TILE_SIZE, &level[s->x + i][s->y + j], win);
         }
     }
 }
 
-/// add tile at x and y coordinate to the level
+/// render tile at x and y coordinate
 // uses the upper left hand corner as the starting point for rendering the tile
-// x is the x cord of the map
-// y is the y cord of the map
+// x is the x cord of the screen
+// y is the y cord of the screen
 // t is the tile to be rendered
 // win is the screen to be rendered too
-void add_tile(int x, int y, tile *t, WINDOW *win) {
+void render_tile(int x, int y, tile *t, WINDOW *win) {
     int i, j;
     // iterate through all of the characters in the tile
     for(i = 0; i < TILE_SIZE; i++) {
@@ -51,6 +51,14 @@ void add_tile(int x, int y, tile *t, WINDOW *win) {
             mvwaddch(win, y + i, x + j, t->data[i][j]);
         }
     }
+}
+
+/// add tile to the level
+// x is the x cord of the level
+// y is the x cord of the level
+// t is the tile to be added
+void add_tile_to_level(int x, int y, tile *t) {
+    level[x][y] = *t;
 }
 
 /// add a filled in room to the level
@@ -65,7 +73,7 @@ void add_filled_room(tile *wall, int height, int width) {
     for(i = 0; i < width; i++) {
         for(j = 0; j < height; j++) {
             // add the tile
-            level[i][j] = *wall;
+            add_tile_to_level(i, j, wall);
         }
     }
 }
@@ -81,7 +89,7 @@ void add_room(tile *wall, int height, int width) {
     // add top wall
     for(i = 0; i < width; i++) {
         // add the tile
-        level[x][y] = *wall;
+        add_tile_to_level(x, y, wall);
         // update x position
         x++;
     }
@@ -91,7 +99,7 @@ void add_room(tile *wall, int height, int width) {
     y = (height - 1);
     for(i = 0; i < width; i++) {
         // add the tile
-        level[x][y] = *wall;
+        add_tile_to_level(x, y, wall);
         // update x position
         x++;
     }
@@ -101,7 +109,7 @@ void add_room(tile *wall, int height, int width) {
     y = 0;
     for(i = 0; i < height; i++) {
         // add the tile
-        level[x][y] = *wall;
+        add_tile_to_level(x, y, wall);
         // update y position
         y++;
     }
@@ -111,7 +119,7 @@ void add_room(tile *wall, int height, int width) {
     y = 0;
     for(i = 0; i < height; i++) {
         // add the tile
-        level[x][y] = *wall;
+        add_tile_to_level(x, y, wall);
         // update y position
         y++;
     }
