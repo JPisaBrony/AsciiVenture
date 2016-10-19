@@ -1,6 +1,7 @@
 #ifndef PLAYER_H_INCLUDED
 #define PLAYER_H_INCLUDED
-
+#include <stdlib.h>
+#include "globals.h"
 #include "tile.h"
 #include "curses.h"
 

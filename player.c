@@ -26,7 +26,7 @@ void move_player(int x, int y, player* p) {
 // win is the screen to be rendered too
 void render_player(player *p, tile* t, WINDOW *win) {
     // render the player
-    render_tile(p->x, p->y, p->player_tile, win);
+    add_tile(p->x, p->y, p->player_tile, win);
 
     // select direction for rendering
     // remove the old player text
@@ -36,19 +36,19 @@ void render_player(player *p, tile* t, WINDOW *win) {
             return;
         // up
         case 1:
-            render_tile(p->x, p->y + TILE_SIZE, t, win);
+            add_tile(p->x, p->y + TILE_SIZE, t, win);
             break;
         // left
         case 2:
-            render_tile(p->x + TILE_SIZE, p->y, t, win);
+            add_tile(p->x + TILE_SIZE, p->y, t, win);
             break;
         // down
         case 3:
-            render_tile(p->x, p->y - TILE_SIZE, t, win);
+            add_tile(p->x, p->y - TILE_SIZE, t, win);
             break;
         // right
         case 4:
-            render_tile(p->x - TILE_SIZE, p->y, t, win);
+            add_tile(p->x - TILE_SIZE, p->y, t, win);
             break;
     }
 }

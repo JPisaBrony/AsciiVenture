@@ -1,6 +1,8 @@
 #ifndef TILE_INCLUDED
 #define TILE_INCLUDED
 
+/// globals
+
 #define TILE_SIZE 4
 
 /// structures
