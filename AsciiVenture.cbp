@@ -37,6 +37,7 @@
 			<Add directory="./libs" />
 		</Linker>
 		<Unit filename="curses.h" />
+		<Unit filename="globals.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
