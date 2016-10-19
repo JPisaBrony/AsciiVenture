@@ -29,9 +29,6 @@ int main(int argc, char* args[])
     bkgd(COLOR_PAIR(1));
     //nodelay(stdscr, TRUE);
 
-    // test string
-    addstr("ASCII VENTURE!!!\n");
-
     // test tile
     char tile_data[4][4] = {
         { '-', '-', '-', '-' },
@@ -41,7 +38,9 @@ int main(int argc, char* args[])
     };
 
     tile *test_tile = create_tile(COLOR_WHITE, COLOR_BLUE, tile_data);
-    render_tile(10, 20, test_tile, stdscr);
+
+    render_room(test_tile, 10, 30, stdscr);
+    //render_filled_room(test_tile, 10, 30, stdscr);
 
     // wait
     getch();
