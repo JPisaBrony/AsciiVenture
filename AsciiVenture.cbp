@@ -44,6 +44,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="map.h" />
+		<Unit filename="player.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="player.h" />
 		<Unit filename="tile.c">
 			<Option compilerVar="CC" />
 		</Unit>
