@@ -157,8 +157,6 @@ int main(int argc, char* args[])
         // create a normal room
         add_room(LEVEL_CENTER, LEVEL_CENTER, 10, 30, test_tile);
 
-        add_filled_room(LEVEL_CENTER - 10, LEVEL_CENTER - 10, 5, 5, test_tile);
-
         // render the player
         render_player(player, blank_tile, stdscr);
         // render the level

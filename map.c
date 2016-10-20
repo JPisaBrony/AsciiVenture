@@ -198,33 +198,81 @@ void add_room(int x_level, int y_level, int height, int width, tile *wall) {
         // update x position
         x++;
     }
-    // add bottom wall
+
     // set variables to proper values
     x = x_level;
     y = y_level + (height - 1);
+    // add bottom wall
     for(i = 0; i < width; i++) {
         // add the tile
         add_tile_to_level(x, y, wall);
         // update x position
         x++;
     }
-    // add left wall
+
     // set variables to proper values
     x = x_level;
     y = y_level;
+    // add left wall
     for(i = 0; i < height; i++) {
         // add the tile
         add_tile_to_level(x, y, wall);
         // update y position
         y++;
     }
-    // add right wall
+
     // set variables to proper values
     x = x_level + (width - 1);
     y = y_level;
+    // add right wall
     for(i = 0; i < height; i++) {
         // add the tile
         add_tile_to_level(x, y, wall);
+        // update y position
+        y++;
+    }
+}
+
+void add_hallway(int x_level, int y_level, int height, int width, int path_x_offset, int path_y_offset, int paths, tile *wall) {
+    int i, x = x_level, y = y_level;
+
+    // add top part of hall along y axis
+    for(i = 0; i < width; i++) {
+        // add the tile
+        add_tile_to_level(x, y + path_y_offset, wall);
+        // update x position
+        x++;
+    }
+
+    // set variables to proper values
+    x = x_level;
+    y = y_level;
+    // add top part of hall along y axis
+    for(i = 0; i < width; i++) {
+        // add the tile
+        add_tile_to_level(x, y + 2 + path_y_offset, wall);
+        // update x position
+        x++;
+    }
+
+    // set variables to proper values
+    x = x_level;
+    y = y_level;
+    // add left part of hall along x axis
+    for(i = 0; i < height; i++) {
+        // add the tile
+        add_tile_to_level(x + path_x_offset, y, wall);
+        // update y position
+        y++;
+    }
+
+    // set variables to proper values
+    x = x_level;
+    y = y_level;
+    // add right part of hall along x axis
+    for(i = 0; i < height; i++) {
+        // add the tile
+        add_tile_to_level(x + 2 + path_x_offset, y, wall);
         // update y position
         y++;
     }
