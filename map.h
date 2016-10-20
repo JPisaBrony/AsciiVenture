@@ -34,5 +34,7 @@ void add_filled_room(tile *wall, int height, int width);
 void add_room(tile *wall, int height, int width);
 screen* create_screen();
 void add_tile_to_level(int x, int y, tile *t);
+int check_collision(int x, int y, int direction, tile *col_tile);
+int check_collision_edge(int x, int y, int direction);
 
 #endif // MAP_INCLUDED

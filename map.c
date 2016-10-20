@@ -118,6 +118,50 @@ int check_collision(int x, int y, int direction, tile *col_tile) {
     return collision;
 }
 
+/// check to see if collided with the edge has been detected
+// 0 is there is no collision
+// 1 is there was a collision
+// x is the x cord of the collision to be checked against
+// y is the y cord of the collision to be checked against
+// direction is the direction of the collision
+int check_collision_edge(int x, int y, int direction) {
+    int collision = 0;
+
+    // select direction for checking collision
+    switch(direction) {
+        // up
+        case 1:
+            // check if at the boundary
+            if(y > 0) {
+                collision = 1;
+            }
+            break;
+        // left
+        case 2:
+            // check if at the boundary
+            if(x > 0) {
+                collision = 1;
+            }
+            break;
+        // down
+        case 3:
+            // check if at the boundary
+            if(y < LEVEL_SIZE) {
+                    collision = 1;
+            }
+            break;
+        // right
+        case 4:
+            // check if at the boundary
+            if(x < LEVEL_SIZE) {
+                collision = 1;
+            }
+            break;
+    }
+    // return if it collided or not
+    return collision;
+}
+
 /// add a filled in room to the level
 // uses the upper left hand corner as the starting point for rendering the room
 // wall is the tile to be used for the wall of the room

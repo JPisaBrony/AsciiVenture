@@ -130,19 +130,27 @@ int main(int argc, char* args[])
                 break;
             // camera up
             case 'i':
-                current_screen->y -= 1;
+                // check if at the edge of the screen
+                if(check_collision_edge(current_screen->x, current_screen->y, 1))
+                    current_screen->y -= 1;
                 break;
             // camera left
             case 'j':
-                current_screen->x -= 1;
+                // check if at the edge of the screen
+                if(check_collision_edge(current_screen->x, current_screen->y, 2))
+                    current_screen->x -= 1;
                 break;
             // camera down
             case 'k':
-                current_screen->y += 1;
+                // check if at the edge of the screen
+                if(check_collision_edge(current_screen->x, current_screen->y, 3))
+                    current_screen->y += 1;
                 break;
             // camera right
             case 'l':
-                current_screen->x += 1;
+                // check if at the edge of the screen
+                if(check_collision_edge(current_screen->x, current_screen->y, 4))
+                    current_screen->x += 1;
                 break;
         }
 
