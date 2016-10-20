@@ -69,42 +69,48 @@ void add_tile_to_level(int x, int y, tile *t) {
 // direction is the direction of the collision
 // col_tile is the tile to be checked against
 int check_collision(int x, int y, int direction, tile *col_tile) {
-    int i, j, collision = 0;
-
-    // check if at the edge of the map to make sure
-    // we don't go out of bounds on the array checks
-    if(x == 0 || y == 0 || x == LEVEL_SIZE || y == LEVEL_SIZE) {
-        return 1;
-    }
+    int collision = 0;
 
     // select direction for checking collision
     switch(direction) {
         // up
         case 1:
-            // check tile above if it equals the tile to collide with
-            if(compare_tile_data(&level[x][y-1], col_tile)) {
-                collision = 1;
+            // check if at the boundary
+            if(y > 0) {
+                // check tile above if it equals the tile to collide with
+                if(compare_tile_data(&level[x][y-1], col_tile)) {
+                    collision = 1;
+                }
             }
             break;
         // left
         case 2:
-            // check tile left of if it equals the tile to collide with
-            if(compare_tile_data(&level[x-1][y], col_tile)) {
-                collision = 1;
+            // check if at the boundary
+            if(x > 0) {
+                // check tile left of if it equals the tile to collide with
+                if(compare_tile_data(&level[x-1][y], col_tile)) {
+                    collision = 1;
+                }
             }
             break;
         // down
         case 3:
-            // check tile below it equals the tile to collide with
-            if(compare_tile_data(&level[x][y+1], col_tile)) {
-                collision = 1;
+            // check if at the boundary
+            if(y < LEVEL_SIZE) {
+                // check tile below it equals the tile to collide with
+                if(compare_tile_data(&level[x][y+1], col_tile)) {
+                    collision = 1;
+                }
             }
             break;
         // right
         case 4:
-            // check tile right of it equals the tile to collide with
-            if(compare_tile_data(&level[x+1][y], col_tile)) {
-                collision = 1;
+            // check if at the boundary
+            if(x < LEVEL_SIZE) {
+                // check tile right of it equals the tile to collide with
+                if(compare_tile_data(&level[x+1][y], col_tile)) {
+                    collision = 1;
+                }
             }
             break;
     }

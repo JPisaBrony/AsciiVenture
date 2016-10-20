@@ -147,7 +147,7 @@ int main(int argc, char* args[])
         }
 
         // create a normal room
-        add_room(test_tile, 10, 30);
+        //add_room(test_tile, 10, 30);
         // render the player
         render_player(player, blank_tile, stdscr);
         // render the level
