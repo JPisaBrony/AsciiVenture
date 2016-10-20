@@ -5,6 +5,7 @@
 #include "player.h"
 #include "map.h"
 #include "globals.h"
+#include "read_tile.h"
 
 PDCEX SDL_Surface *pdc_screen;
 int quit = 0, direction;
@@ -70,6 +71,9 @@ int main(int argc, char* args[])
     screen *current_screen = create_screen();
     // set all the tiles to be blank
     initialize_level(blank_tile);
+
+    tile_list_t* tList = NULL;
+    tList = init_tiles();
 
     // main game loop
     while(!quit) {
