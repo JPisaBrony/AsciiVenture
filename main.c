@@ -64,7 +64,7 @@ int main(int argc, char* args[])
     // create player tile
     tile *player_tile = create_tile(COLOR_WHITE, COLOR_BLUE, player_data, "player");
     // create player
-    player *player = create_player(4, 4, player_tile);
+    player *player = create_player(LEVEL_CENTER + 1, LEVEL_CENTER + 1, player_tile);
 
     // create screen
     screen *current_screen = create_screen();
@@ -155,7 +155,10 @@ int main(int argc, char* args[])
         }
 
         // create a normal room
-        //add_room(test_tile, 10, 30);
+        add_room(LEVEL_CENTER, LEVEL_CENTER, 10, 30, test_tile);
+
+        add_filled_room(LEVEL_CENTER - 10, LEVEL_CENTER - 10, 5, 5, test_tile);
+
         // render the player
         render_player(player, blank_tile, stdscr);
         // render the level

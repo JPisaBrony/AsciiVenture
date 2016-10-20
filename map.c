@@ -3,8 +3,8 @@
 /// initialize a screen structure
 screen* create_screen() {
     screen *s = malloc(sizeof(screen));
-    s->x = 0;
-    s->y = 0;
+    s->x = LEVEL_CENTER;
+    s->y = LEVEL_CENTER;
     s->width = (WIDTH / TILE_SIZE);
     s->height = (HEIGHT / TILE_SIZE);
 }
@@ -147,7 +147,7 @@ int check_collision_edge(int x, int y, int direction) {
         case 3:
             // check if at the boundary
             if(y < LEVEL_SIZE) {
-                    collision = 1;
+                collision = 1;
             }
             break;
         // right
@@ -164,15 +164,17 @@ int check_collision_edge(int x, int y, int direction) {
 
 /// add a filled in room to the level
 // uses the upper left hand corner as the starting point for rendering the room
-// wall is the tile to be used for the wall of the room
+// x_level is the x cord in the level
+// y_level is the y cord in the level
 // height is the height of the room
 // width is the width of the room
-void add_filled_room(tile *wall, int height, int width) {
-    int i, j, x = 0, y = 0;
+// wall is the tile to be used for the wall of the room
+void add_filled_room(int x_level, int y_level, int height, int width, tile *wall) {
+    int i, j;
 
     // iterate through each position
-    for(i = 0; i < width; i++) {
-        for(j = 0; j < height; j++) {
+    for(i = x_level; i < x_level + width; i++) {
+        for(j = y_level; j < y_level + height; j++) {
             // add the tile
             add_tile_to_level(i, j, wall);
         }
@@ -181,11 +183,13 @@ void add_filled_room(tile *wall, int height, int width) {
 
 /// add a normal room
 // uses the upper left hand corner as the starting point for rendering the room
-// wall is the tile to be used for the wall of the room
+// x_level is the x cord in the level
+// y_level is the y cord in the level
 // height is the height of the room
 // width is the width of the room
-void add_room(tile *wall, int height, int width) {
-    int i, x = 0, y = 0;
+// wall is the tile to be used for the wall of the room
+void add_room(int x_level, int y_level, int height, int width, tile *wall) {
+    int i, x = x_level, y = y_level;
 
     // add top wall
     for(i = 0; i < width; i++) {
@@ -196,8 +200,8 @@ void add_room(tile *wall, int height, int width) {
     }
     // add bottom wall
     // set variables to proper values
-    x = 0;
-    y = (height - 1);
+    x = x_level;
+    y = y_level + (height - 1);
     for(i = 0; i < width; i++) {
         // add the tile
         add_tile_to_level(x, y, wall);
@@ -206,8 +210,8 @@ void add_room(tile *wall, int height, int width) {
     }
     // add left wall
     // set variables to proper values
-    x = 0;
-    y = 0;
+    x = x_level;
+    y = y_level;
     for(i = 0; i < height; i++) {
         // add the tile
         add_tile_to_level(x, y, wall);
@@ -216,8 +220,8 @@ void add_room(tile *wall, int height, int width) {
     }
     // add right wall
     // set variables to proper values
-    x = (width - 1);
-    y = 0;
+    x = x_level + (width - 1);
+    y = y_level;
     for(i = 0; i < height; i++) {
         // add the tile
         add_tile_to_level(x, y, wall);

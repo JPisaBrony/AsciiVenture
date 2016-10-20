@@ -8,6 +8,7 @@
 /// globals
 
 #define LEVEL_SIZE 1000
+#define LEVEL_CENTER (LEVEL_SIZE / 2)
 
 tile level[LEVEL_SIZE][LEVEL_SIZE];
 
@@ -30,8 +31,8 @@ typedef struct {
 /// function prototypes
 
 void render_tile(int x, int y, tile *t, WINDOW* win);
-void add_filled_room(tile *wall, int height, int width);
-void add_room(tile *wall, int height, int width);
+void add_filled_room(int x_level, int y_level, int height, int width, tile *wall);
+void add_room(int x_level, int y_level, int height, int width, tile *wall);
 screen* create_screen();
 void add_tile_to_level(int x, int y, tile *t);
 int check_collision(int x, int y, int direction, tile *col_tile);

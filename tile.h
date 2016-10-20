@@ -19,7 +19,6 @@ typedef struct {
     char *name;
 } tile;
 
-
 /// function prototypes
 
 tile* create_tile(int bgcolor, int fgcolor, char data[TILE_SIZE][TILE_SIZE], char *name);
