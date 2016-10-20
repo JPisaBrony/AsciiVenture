@@ -23,5 +23,9 @@ typedef struct {
 /// function prototypes
 
 tile* create_tile(int bgcolor, int fgcolor, char data[TILE_SIZE][TILE_SIZE], char *name);
+int compare_tile_foreground(tile *first, tile* second);
+int compare_tile_background(tile *first, tile* second);
+int compare_tile_data(tile *first, tile* second);
+int compare_tile_name(tile *first, tile* second);
 
 #endif // TILE_INCLUDED
