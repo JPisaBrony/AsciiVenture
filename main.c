@@ -55,10 +55,10 @@ int main(int argc, char* args[])
 
     // create player tile
     char player_data[4][4] = {
-        { '-', ' ', ' ', '-' },
         { ' ', ' ', ' ', ' ' },
-        { ' ', ' ', ' ',' ' },
-        { '-', '-', '-', '-' }
+        { ' ', ' ', ' ', ' ' },
+        { '?', '_', '_','O' },
+        { '/', '\\', '/', '\\' }
     };
 
     // create player tile
@@ -83,22 +83,50 @@ int main(int argc, char* args[])
             // player up
             case 'w':
                 player->direction = 1;
-                move_player(player->x, player->y - 1, player);
+                // check if the players tile to be moved into is equal to the wall tile
+                // if it is not, move the player
+                // else do not move the player
+                if(check_collision(player->x, player->y, player->direction, test_tile)) {
+                    move_player(player->x, player->y - 1, player);
+                } else {
+                    player->direction = 0;
+                }
                 break;
             // player left
             case 'a':
                 player->direction = 2;
-                move_player(player->x - 1, player->y, player);
+                // check if the players tile to be moved into is equal to the wall tile
+                // if it is not, move the player
+                // else do not move the player
+                if(check_collision(player->x, player->y, player->direction, test_tile)) {
+                    move_player(player->x - 1, player->y, player);
+                } else {
+                    player->direction = 0;
+                }
                 break;
             // player down
             case 's':
+                // check if the players tile to be moved into is equal to the wall tile
+                // if it is not, move the player
+                // else do not move the player
                 player->direction = 3;
-                move_player(player->x, player->y + 1, player);
+                if(check_collision(player->x, player->y, player->direction, test_tile)) {
+                    move_player(player->x, player->y + 1, player);
+                } else {
+                    player->direction = 0;
+                }
                 break;
             // player right
             case 'd':
                 player->direction = 4;
-                move_player(player->x + 1, player->y, player);
+                // check if the players tile to be moved into is equal to the wall tile
+                // if it is not, move the player
+                // else do not move the player
+                if(check_collision(player->x, player->y, player->direction, test_tile)) {
+                    move_player(player->x + 1, player->y, player);
+                } else {
+                    player->direction = 0;
+                }
                 break;
             // camera up
             case 'i':
@@ -122,8 +150,6 @@ int main(int argc, char* args[])
         add_room(test_tile, 10, 30);
         // render the player
         render_player(player, blank_tile, stdscr);
-        // reset direction
-        player->direction = 0;
         // render the level
         render_level(current_screen, stdscr);
     }

@@ -61,6 +61,57 @@ void add_tile_to_level(int x, int y, tile *t) {
     level[x][y] = *t;
 }
 
+/// check to see if collision has been detected
+// 0 is there is no collision
+// 1 is there was a collision
+// x is the x cord of the collision to be checked against
+// y is the y cord of the collision to be checked against
+// direction is the direction of the collision
+// col_tile is the tile to be checked against
+int check_collision(int x, int y, int direction, tile *col_tile) {
+    int i, j, collision = 0;
+
+    // check if at the edge of the map to make sure
+    // we don't go out of bounds on the array checks
+    if(x == 0 || y == 0 || x == LEVEL_SIZE || y == LEVEL_SIZE) {
+        return 1;
+    }
+
+    // select direction for checking collision
+    switch(direction) {
+        // up
+        case 1:
+            // check tile above if it equals the tile to collide with
+            if(compare_tile_data(&level[x][y-1], col_tile)) {
+                collision = 1;
+            }
+            break;
+        // left
+        case 2:
+            // check tile left of if it equals the tile to collide with
+            if(compare_tile_data(&level[x-1][y], col_tile)) {
+                collision = 1;
+            }
+            break;
+        // down
+        case 3:
+            // check tile below it equals the tile to collide with
+            if(compare_tile_data(&level[x][y+1], col_tile)) {
+                collision = 1;
+            }
+            break;
+        // right
+        case 4:
+            // check tile right of it equals the tile to collide with
+            if(compare_tile_data(&level[x+1][y], col_tile)) {
+                collision = 1;
+            }
+            break;
+    }
+    // return if it collided or not
+    return collision;
+}
+
 /// add a filled in room to the level
 // uses the upper left hand corner as the starting point for rendering the room
 // wall is the tile to be used for the wall of the room
