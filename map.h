@@ -33,7 +33,7 @@ typedef struct {
 void render_tile(int x, int y, tile *t, WINDOW* win);
 void add_filled_room(int x_level, int y_level, int height, int width, tile *wall);
 void add_room(int x_level, int y_level, int height, int width, tile *wall);
-void add_hallway(int x_level, int y_level, int height, int width, int path_x_offset, int path_y_offset, int paths, tile *wall);
+void add_hallway(int x_level, int y_level, int height, int width, int path_x_offset, int path_y_offset, int path_width, int path_selection, tile *wall, tile* blank);
 screen* create_screen();
 void add_tile_to_level(int x, int y, tile *t);
 int check_collision(int x, int y, int direction, tile *col_tile);

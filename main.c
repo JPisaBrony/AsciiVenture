@@ -72,8 +72,8 @@ int main(int argc, char* args[])
     // set all the tiles to be blank
     initialize_level(blank_tile);
 
-    tile_list_t* tList = NULL;
-    tList = init_tiles();
+    //tile_list_t* tList = NULL;
+    //tList = init_tiles();
 
     // main game loop
     while(!quit) {
@@ -159,7 +159,9 @@ int main(int argc, char* args[])
         }
 
         // create a normal room
-        add_room(LEVEL_CENTER, LEVEL_CENTER, 10, 30, test_tile);
+        //add_room(LEVEL_CENTER, LEVEL_CENTER, 10, 30, test_tile);
+
+        add_hallway(LEVEL_CENTER, LEVEL_CENTER, 15, 15, 5, 5, 2, 11, test_tile, blank_tile);
 
         // render the player
         render_player(player, blank_tile, stdscr);

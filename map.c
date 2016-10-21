@@ -233,47 +233,155 @@ void add_room(int x_level, int y_level, int height, int width, tile *wall) {
     }
 }
 
-void add_hallway(int x_level, int y_level, int height, int width, int path_x_offset, int path_y_offset, int paths, tile *wall) {
-    int i, x = x_level, y = y_level;
+/// add a hallway
+// uses the upper left hand corner as the starting point for rendering the room
+// x_level is the x cord in the level
+// y_level is the y cord in the level
+// height is the height of the room
+// width is the width of the room
+// path_x_offset is the offset used when rendering on either side of the wall section
+// path_y_offset is the offset used when rendering on either side of the wall section
+// path_width is used for determining the width of the path note: currently being used for offsets
+// path_selection is which hallway to use
+// wall is the tile to be used for the wall of the room
+// blank is suppose to be the blank tile to clear sections of the walls
+void add_hallway(int x_level, int y_level, int height, int width, int path_x_offset, int path_y_offset, int path_width, int path_selection, tile *wall, tile* blank) {
+    int i, side_start_x, side_start_y, side_end_x, side_end_y, tile_remove_x, tile_remove_y;
 
-    // add top part of hall along y axis
-    for(i = 0; i < width; i++) {
-        // add the tile
-        add_tile_to_level(x, y + path_y_offset, wall);
-        // update x position
-        x++;
+    // get the proper length of each wall
+    switch(path_selection) {
+        case 1:
+            side_start_x = 0;
+            side_start_y = 0;
+            side_end_x = path_x_offset + path_width + 1;
+            side_end_y = path_y_offset + path_width + 1;
+            break;
+        case 2:
+            side_start_x = path_x_offset;
+            side_start_y = 0;
+            side_end_x = width;
+            side_end_y = path_y_offset + path_width;
+            break;
+        case 3:
+            side_start_x = 0;
+            side_start_y = path_y_offset;
+            side_end_x = path_x_offset + path_width;
+            side_end_y = height;
+            break;
+        case 4:
+            side_start_x = path_x_offset;
+            side_start_y = path_y_offset;
+            side_end_x = width;
+            side_end_y = height;
+            break;
+        case 5:
+            side_start_x = 0;
+            side_start_y = 0;
+            side_end_x = width;
+            side_end_y = 0;
+            break;
+        case 6:
+            side_start_x = 0;
+            side_start_y = 0;
+            side_end_x = 0;
+            side_end_y = height;
+            break;
+        case 7:
+            side_start_x = 0;
+            side_start_y = 0;
+            side_end_x = path_x_offset;
+            side_end_y = height;
+            break;
+        case 8:
+            side_start_x = 0;
+            side_start_y = 0;
+            side_end_x = width;
+            side_end_y = path_y_offset;
+            break;
+        case 9:
+            side_start_x = path_x_offset + path_width;
+            side_start_y = 0;
+            side_end_x = width;
+            side_end_y = height;
+            break;
+        case 10:
+            side_start_x = 0;
+            side_start_y = path_y_offset + path_width;
+            side_end_x = width;
+            side_end_y = height;
+            break;
+        case 11:
+            side_start_x = 0;
+            side_start_y = 0;
+            side_end_x = width;
+            side_end_y = height;
     }
 
-    // set variables to proper values
-    x = x_level;
-    y = y_level;
-    // add top part of hall along y axis
-    for(i = 0; i < width; i++) {
+    // add top part of hall along x axis
+    for(i = side_start_x; i < side_end_x; i++) {
         // add the tile
-        add_tile_to_level(x, y + 2 + path_y_offset, wall);
-        // update x position
-        x++;
+        add_tile_to_level(x_level + i, x_level + path_y_offset, wall);
     }
 
-    // set variables to proper values
-    x = x_level;
-    y = y_level;
-    // add left part of hall along x axis
-    for(i = 0; i < height; i++) {
+    // add top part of hall along x axis
+    for(i = side_start_x; i < side_end_x; i++) {
         // add the tile
-        add_tile_to_level(x + path_x_offset, y, wall);
-        // update y position
-        y++;
+        add_tile_to_level(x_level + i, y_level + 2 + path_y_offset, wall);
     }
 
-    // set variables to proper values
-    x = x_level;
-    y = y_level;
-    // add right part of hall along x axis
-    for(i = 0; i < height; i++) {
+    // add left part of hall along y axis
+    for(i = side_start_y; i < side_end_y; i++) {
         // add the tile
-        add_tile_to_level(x + 2 + path_x_offset, y, wall);
-        // update y position
-        y++;
+        add_tile_to_level(x_level + path_x_offset, y_level + i, wall);
+    }
+
+    // add right part of hall along y axis
+    for(i = side_start_y; i < side_end_y; i++) {
+        // add the tile
+        add_tile_to_level(x_level + 2 + path_x_offset, y_level + i, wall);
+    }
+
+    // remove extra squares
+    switch(path_selection) {
+        case 1:
+            add_tile_to_level(x_level + side_end_x - 2, x_level + path_y_offset, blank);
+            add_tile_to_level(x_level + path_x_offset, y_level + side_end_y - 2, blank);
+            break;
+        case 2:
+            add_tile_to_level(x_level + side_start_x + 2, y_level + 2 + path_y_offset - 1, blank);
+            add_tile_to_level(x_level + 2 + path_x_offset - 1, y_level + side_end_y - 2, blank);
+            break;
+        case 3:
+            add_tile_to_level(x_level + side_end_x - 2, x_level + path_y_offset + 1, blank);
+            add_tile_to_level(x_level + 2 + path_x_offset - 1, y_level + side_start_y + 2, blank);
+            break;
+        case 4:
+            add_tile_to_level(x_level + side_start_x + 1, y_level + 2 + path_y_offset, blank);
+            add_tile_to_level(x_level + 2 + path_x_offset, y_level + side_start_y + 1, blank);
+            break;
+        case 7:
+            add_tile_to_level(x_level + side_end_x, x_level + path_y_offset + 1, blank);
+            break;
+        case 8:
+            add_tile_to_level(x_level + 2 + path_x_offset - 1, y_level + side_end_y, blank);
+            break;
+        case 9:
+            add_tile_to_level(x_level + side_start_x, y_level + 2 + path_y_offset - 1, blank);
+            break;
+        case 10:
+            add_tile_to_level(x_level + 2 + path_x_offset - 1, y_level + side_start_y, blank);
+            break;
+        case 11:
+            // add top part of hall along x axis
+            for(i = side_start_x; i < side_end_x; i++) {
+                // add the tile
+                add_tile_to_level(x_level + i, y_level + 1 + path_y_offset, blank);
+            }
+            // add right part of hall along y axis
+            for(i = side_start_y; i < side_end_y; i++) {
+                // add the tile
+                add_tile_to_level(x_level + 1 + path_x_offset, y_level + i, blank);
+            }
+            break;
     }
 }
